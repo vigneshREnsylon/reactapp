@@ -29,7 +29,7 @@ function BowlersTable(props: any) {
   // BUG-2 (Null/Empty Guard): filter runs before the null check below —
   // if props.displayTeams is undefined this line throws TypeError
   var filteredBowlers = bowlerData.filter((b) =>
-    filteredTeamNames.includes(b.team.teamName),
+    filteredTeamNames && filteredTeamNames.includes(b.team.teamName),
   );
 
   // If nothing was passed, display them all
@@ -61,7 +61,7 @@ function BowlersTable(props: any) {
               <th>ID</th>
               <th>Last Name</th>
               {/* BUG-1 (UI Label): "First Names" should be "First Name" */}
-              <th>First Names</th>
+              <th>First Name</th>
               <th>Address</th>
               <th>Phone</th>
               <th>Team</th>
