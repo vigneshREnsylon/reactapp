@@ -1,0 +1,12 @@
+{
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "rules": {
+    // Integrate Prettier with ESLint and treat formatting issues as errors
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto" // Automatically adapt line endings to the system's style
+      }
+    ]
+  }
+}
