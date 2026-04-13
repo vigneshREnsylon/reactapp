@@ -61,7 +61,7 @@ function BowlersTable(props: any) {
               <th>ID</th>
               <th>Last Name</th>
               {/* BUG-1 (UI Label): "First Names" should be "First Name" */}
-              <th>First Name</th>
+              <th>First Names</th>
               <th>Address</th>
               <th>Phone</th>
               <th>Team</th>
