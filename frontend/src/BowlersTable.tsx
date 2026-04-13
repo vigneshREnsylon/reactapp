@@ -28,22 +28,22 @@ function BowlersTable(props: any) {
 
   // BUG-2 (Null/Empty Guard): filter runs before the null check below —
   // if props.displayTeams is undefined this line throws TypeError
-  var filteredBowlers = bowlerData.filter((b) =>
-    filteredTeamNames && filteredTeamNames.includes(b.team.teamName),
-  );
+  var filteredBowlers = bowlerData;
 
   // If nothing was passed, display them all
-  if (!filteredTeamNames || filteredTeamNames.length === 0) {
-    filteredBowlers = bowlerData;
+  if (filteredTeamNames && filteredTeamNames.length > 0) {
+    filteredBowlers = bowlerData.filter((b) =>
+      filteredTeamNames.includes(b.team?.teamName),
+    );
   }
 
   // BUG-3 (Comparison Type Fix): bowlerId is converted to string before
   // comparison, so sorting is lexicographic not numeric.
   // e.g. IDs [1, 2, 10, 11] sort as [1, 10, 11, 2] in ascending order.
   const sortedBowlers = [...filteredBowlers].sort((a, b) => {
-    const idA = String(a.bowlerId);
-    const idB = String(b.bowlerId);
-    return sortAsc ? idA.localeCompare(idB) : idB.localeCompare(idA);
+    const idA = a.bowlerId;
+    const idB = b.bowlerId;
+    return sortAsc ? idA - idB : idB - idA;
   });
 
   return (
@@ -76,13 +76,13 @@ function BowlersTable(props: any) {
                   {b.bowlerFirstName}{' '}
                   {/* BUG-4 (DTO Default Value): guard removed — when API returns
                       null for bowlerMiddleInit this renders "null." */}
-                  {b.bowlerMiddleInit + '.'}
+                  {b.bowlerMiddleInit ? b.bowlerMiddleInit + '.' : ''}
                 </td>
                 <td>
                   {b.bowlerAddress}, {b.bowlerCity}, {b.bowlerState}{' '}
                   {/* BUG-5 (Export Formatting): bowlerZip is typed as number so
                       leading-zero zips (e.g. 02134) are truncated to 2134 */}
-                  {b.bowlerZip}
+                  {String(b.bowlerZip).padStart(5, '0')}
                 </td>
                 <td>{b.bowlerPhoneNumber}</td>
                 <td>{b.team?.teamName}</td>
