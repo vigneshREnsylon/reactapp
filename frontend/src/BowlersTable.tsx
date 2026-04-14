@@ -45,13 +45,13 @@ function BowlersTable(props: any) {
   // });
 
   const sortedBowlers = [...filteredBowlers].sort((a, b) => {
-    const idA = String(a.bowlerId);
-  const idB = String(b.bowlerId);
+    const idA = a.bowlerId;
+  const idB = b.bowlerId;
 
-  // lexicographic comparison
+  // numeric comparison
   return sortAsc
-    ? idA.localeCompare(idB)
-    : idB.localeCompare(idA);
+    ? idA - idB
+    : idB - idA;
 });
 
   return (
@@ -104,4 +104,3 @@ function BowlersTable(props: any) {
 }
 
 export default BowlersTable;
- 
