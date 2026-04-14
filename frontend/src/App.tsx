@@ -13,7 +13,7 @@ function App() {
           Marlins or team Sharks."
       />
       <br />
-      <BowlersTable displayTeams={['Marlins', 'Sharks']} />
+      <BowlersTable displayTeams={[]} />
     </div>
   );
 }
