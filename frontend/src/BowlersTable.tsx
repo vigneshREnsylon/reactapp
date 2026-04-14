@@ -31,11 +31,16 @@ function BowlersTable(props: any) {
   // if props.displayTeams is undefined this line throws TypeError
   var filteredBowlers = bowlerData;
 
-  if (filteredTeamNames) {
+  // If nothing was passed, display them all
+  if (filteredTeamNames && filteredTeamNames.length > 0) {
     filteredBowlers = bowlerData.filter((b) =>
       filteredTeamNames.includes(b.team?.teamName),
     );
   }
+
+  // filteredBowlers = bowlerData.filter((b) =>
+  //   filteredTeamNames.includes(b.team?.teamName),
+  // );
 
   // BUG-3 (Comparison Type Fix): bowlerId is converted to string before
   // comparison, so sorting is lexicographic not numeric.
@@ -71,7 +76,7 @@ function BowlersTable(props: any) {
               <th>ID</th>
               <th>Last Name</th>
               {/* BUG-1 (UI Label): "First Names" should be "First Name" */}
-              <th>First Name</th>
+              <th>First Names</th>
               <th>Address</th>
               <th>Phone</th>
               <th>Team</th>
@@ -106,3 +111,4 @@ function BowlersTable(props: any) {
 }
 
 export default BowlersTable;
+ 
