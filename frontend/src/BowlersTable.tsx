@@ -40,13 +40,13 @@ function BowlersTable(props: any) {
   // BUG-3 (Comparison Type Fix): bowlerId is converted to string before
   // comparison, so sorting is lexicographic not numeric.
   const sortedBowlers = [...filteredBowlers].sort((a, b) => {
-    const idA = String(a.bowlerId);
-  const idB = String(b.bowlerId);
+    const idA = a.bowlerId;
+  const idB = b.bowlerId;
 
   // lexicographic comparison
   return sortAsc
-    ? idA.localeCompare(idB)
-    : idB.localeCompare(idA);
+    ? idA - idB
+    : idB - idA;
 });
 
   return (
