@@ -31,11 +31,9 @@ function BowlersTable(props: any) {
   // if props.displayTeams is undefined this line throws TypeError
   var filteredBowlers = bowlerData;
 
-  if (filteredTeamNames && filteredTeamNames.length > 0) {
-    filteredBowlers = bowlerData.filter((b) =>
-      filteredTeamNames.includes(b.team?.teamName),
-    );
-  }
+  filteredBowlers = bowlerData.filter((b) =>
+    filteredTeamNames.includes(b.team?.teamName),
+  );
 
   // BUG-3 (Comparison Type Fix): bowlerId is converted to string before
   // comparison, so sorting is lexicographic not numeric.
@@ -47,13 +45,13 @@ function BowlersTable(props: any) {
   // });
 
   const sortedBowlers = [...filteredBowlers].sort((a, b) => {
-    const idA = a.bowlerId;
-  const idB = b.bowlerId;
+    const idA = String(a.bowlerId);
+  const idB = String(b.bowlerId);
 
-  // numeric comparison
+  // lexicographic comparison
   return sortAsc
-    ? idA - idB
-    : idB - idA;
+    ? idA.localeCompare(idB)
+    : idB.localeCompare(idA);
 });
 
   return (
@@ -106,3 +104,4 @@ function BowlersTable(props: any) {
 }
 
 export default BowlersTable;
+ 
