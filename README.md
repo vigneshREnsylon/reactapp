@@ -2,7 +2,7 @@
 
 This project is an example of a simple React app using a .NET backend. This project is easy to use and set up by doing the following steps:
 
-1. Clone the repository with `git clone https://github.com/sethbr11/react-dotnet.git` in a terminal window.
+1. Clone the repository with `git clone https://github.com/vigneshREnsylon/reactapp.git` in a terminal window.
 2. Navigate inside the project folder and open another terminal window in the folder.
 3. In one of the terminal windows, enter the backend folder and run `dotnet run` to start the backend part of the application.
 4. In the other terminal window, enter the frontend folder. From there, run `npm install` to install all the dependencies needed to run the application.
