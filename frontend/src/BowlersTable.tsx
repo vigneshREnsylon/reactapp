@@ -30,9 +30,10 @@ function BowlersTable(props: any) {
   // BUG-2 (Null/Empty Guard): filter runs before the null check below —
   // if props.displayTeams is undefined this line throws TypeError
   var filteredBowlers = bowlerData;
-  // filteredBowlers = bowlerData.filter((b) =>
-  //   filteredTeamNames.includes(b.team?.teamName),
-  // );
+
+  filteredBowlers = bowlerData.filter((b) =>
+    filteredTeamNames.includes(b.team?.teamName),
+  );
 
   // BUG-3 (Comparison Type Fix): bowlerId is converted to string before
   // comparison, so sorting is lexicographic not numeric.
