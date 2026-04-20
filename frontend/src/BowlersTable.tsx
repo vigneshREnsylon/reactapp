@@ -42,13 +42,13 @@ function BowlersTable(props: any) {
   // e.g. IDs [1, 2, 10, 11] sort as [1, 10, 11, 2] in ascending order.
 
   const sortedBowlers = [...filteredBowlers].sort((a, b) => {
-    const idA = String(a.bowlerId);
-  const idB = String(b.bowlerId);
+    const idA = a.bowlerId;
+  const idB = b.bowlerId;
 
   // lexicographic comparison
   return sortAsc
-    ? idA.localeCompare(idB)
-    : idB.localeCompare(idA);
+    ? idA - idB
+    : idB - idA;
 });
 
   return (
@@ -66,7 +66,7 @@ function BowlersTable(props: any) {
               <th>ID</th>
               <th>Last Name</th>
               {/* BUG-1 (UI Label): "First Names" should be "First Name" */}
-              <th>First Names</th>
+              <th>First Name</th>
               <th>Address</th>
               <th>Phone</th>
               <th>Team</th>
