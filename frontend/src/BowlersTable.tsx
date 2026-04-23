@@ -27,8 +27,6 @@ function BowlersTable(props: any) {
 
   const filteredTeamNames = props.displayTeams;
 
-  // BUG-2 (Null/Empty Guard): filter runs before the null check below —
-  // if props.displayTeams is undefined this line throws TypeError
   var filteredBowlers = bowlerData;
 
   filteredBowlers = filteredTeamNames && filteredTeamNames.length > 0
@@ -36,10 +34,6 @@ function BowlersTable(props: any) {
     filteredTeamNames.includes(b.team?.teamName),
   )
     : bowlerData;
-
-  // BUG-3 (Comparison Type Fix): bowlerId is converted to string before
-  // comparison, so sorting is lexicographic not numeric.
-  // e.g. IDs [1, 2, 10, 11] sort as [1, 10, 11, 2] in ascending order.
   
   const sortedBowlers = [...filteredBowlers].sort((a, b) => {
     const idA = a.bowlerId;
@@ -64,8 +58,7 @@ function BowlersTable(props: any) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Last Name</th>
-              {/* BUG-1 (UI Label): "First Names" should be "First Name" */}
+              <th>Last Name</th>              
               <th>First Name</th>
               <th>Address</th>
               <th>Phone</th>
@@ -79,14 +72,12 @@ function BowlersTable(props: any) {
                 <td>{b.bowlerLastName}</td>
                 <td>
                   {b.bowlerFirstName}{' '}
-                  {/* BUG-4 (DTO Default Value): guard removed — when API returns
-                      null for bowlerMiddleInit this renders "null." */}
+
                   {b.bowlerMiddleInit ? b.bowlerMiddleInit + '.' : ''}
                 </td>
                 <td>
                   {b.bowlerAddress}, {b.bowlerCity}, {b.bowlerState}{' '}
-                  {/* BUG-5 (Export Formatting): bowlerZip is typed as number so
-                      leading-zero zips (e.g. 02134) are truncated to 2134 */}
+
                   {String(b.bowlerZip).padStart(5, '0')}
                 </td>
                 <td>{b.bowlerPhoneNumber}</td>
