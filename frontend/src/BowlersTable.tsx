@@ -27,22 +27,24 @@ function BowlersTable(props: any) {
 
   const filteredTeamNames = props.displayTeams;
 
+  // BUG-2 (Null/Empty Guard): filter runs before the null check below —
+  // if props.displayTeams is undefined this line throws TypeError
   var filteredBowlers = bowlerData;
 
-  filteredBowlers = filteredTeamNames && filteredTeamNames.length > 0
-    ? bowlerData.filter((b) =>
+  filteredBowlers = bowlerData.filter((b) =>
     filteredTeamNames.includes(b.team?.teamName),
-  )
-    : bowlerData;
-  
+  );
+
+
+
   const sortedBowlers = [...filteredBowlers].sort((a, b) => {
-    const idA = a.bowlerId;
-  const idB = b.bowlerId;
+    const idA = String(a.bowlerId);
+  const idB = String(b.bowlerId);
 
   // lexicographic comparison
   return sortAsc
-    ? idA - idB
-    : idB - idA;
+    ? idA.localeCompare(idB)
+    : idB.localeCompare(idA);
 });
 
   return (
@@ -58,8 +60,8 @@ function BowlersTable(props: any) {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Last Name</th>              
-              <th>First Name</th>
+              <th>Last Name</th>
+              <th>First Names</th>
               <th>Address</th>
               <th>Phone</th>
               <th>Team</th>
@@ -72,7 +74,6 @@ function BowlersTable(props: any) {
                 <td>{b.bowlerLastName}</td>
                 <td>
                   {b.bowlerFirstName}{' '}
-
                   {b.bowlerMiddleInit ? b.bowlerMiddleInit + '.' : ''}
                 </td>
                 <td>
@@ -92,3 +93,4 @@ function BowlersTable(props: any) {
 }
 
 export default BowlersTable;
+ 
